@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    scroll-behavior: smooth;
+  }
+
+nav {
+    background-color: aqua;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    margin: 0 20rem;
+    padding: 1rem;
+    font-weight: 700;
+    font-size: x-large;
+}
+
+a {
+    color: red;
+}
+
