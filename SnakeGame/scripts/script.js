@@ -46,4 +46,16 @@ comece criando as variáveis globais do jogo.
     F. É um objeto de coordenadas aleatórias;
     */
     let food;
-    debugger
+
+    /*
+    Precisamos de uma função chamada "createBG" -- criar background --  que desenha nosso quadro do game.
+    Para isso precisamos utilizar o contexto do canvas, criado anteriormente, e
+    configurar sua cor (fillStyle) e desenhar o retângulo (fillRect). Os parâmetros
+    do retângulo são (0,0,16 * box, 16 * box).
+    */
+   function createBG(context) {
+        context.fillStyle = "black";
+        context.fillRect(0, 0, 16 * box, 16 * box);
+   };
+
+   createBG(context);
