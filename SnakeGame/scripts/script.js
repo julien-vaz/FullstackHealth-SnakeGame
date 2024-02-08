@@ -75,3 +75,16 @@ comece criando as variáveis globais do jogo.
     }
    }
    createSnake();
+
+   /*
+   O jogo demanda uma funcionalidade que "renderize" também o "food".
+    Crie uma função "createFood". A mesma lógica de criação do background e da cobrinha é aplicada.
+
+    preciamos definir a coloração do contexto (fillStyle) e desenhá-lo em formato retangular (fillRect).
+    */
+   function createFood() {
+    food = new Segment(Math.floor(Math.random() * 16 * box), Math.floor(Math.random() * 16 * box));
+    context.fillStyle = "red";
+    context.fillRect(food.x, food.y, 32, 32);
+   };
+   createFood();
