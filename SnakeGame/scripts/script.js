@@ -88,3 +88,23 @@ comece criando as variáveis globais do jogo.
     context.fillRect(food.x, food.y, 32, 32);
    };
    createFood();
+
+   /*
+   A cobrinha vai andar, certo?
+
+    Para encapsular essa mecânica, crie uma função "update" que receberá um parâmetro "event".
+    Este evento é o "keydown" que representa o momento que o jogador movimenta a cobrinha para um lado ou outro pressionando teclas do teclado, as famosas setinhas.
+
+    Precisamos identificar se essa tecla pressionada foi uma setinha, e qual das setinhas.
+    Para isso usamos o event do "keydown" para confirmar seu "keyCode". Tambpem precisamos checar se a direção apertada não é a oposta da atual. Neste caso não há movimento.
+
+    Cada keydown vai gerar um valor no parâmetro "direction". Criado lá no primeiro exercício com o default igual a "right".
+
+    Lembre-se, a partir desse input evento que vamos verificar qual é a tecla, portando, direção, precisamos tomar decisão de pra onde a cobrinha vai andar.
+   */
+   function update(event) {
+        if (event.keyCode = 37 && direction != "right") {direction = "left"};
+        if (event.keyCode = 38 && direction != "down") {direction = "up"};
+        if (event.keyCode = 39 && direction != "left") {direction = "right"};
+        if (event.keyCode = 40 && direction != "up") {direction = "down"};
+   };
