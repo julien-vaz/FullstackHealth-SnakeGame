@@ -59,3 +59,19 @@ comece criando as variáveis globais do jogo.
    };
 
    createBG(context);
+
+   /*
+   Crie uma função chamada "createSnake". Esta funçao é responsável por gerar o posicionamento
+    da cobrinha no jogo. Ela é uma sequência de quadradinhos verdes.
+    Portantoe precisamos "pintar" o canvas de verde de acordo com o tamanho e coordenadas da snake.
+
+    Conforme ela come os "foods" ela aumenta. Isso significa um aumento na Array.
+    Portanto precisamos de um loop que esteja sempre atento à array recriando a cobrinha no contexto do canva.
+    */
+   function createSnake() {
+    for (i = 0; i < snake.length; i++) {
+        context.fillStyle = "green";
+        context.fillRect(snake[i].x, snake[i].y, box, box);
+    }
+   }
+   createSnake();
