@@ -204,7 +204,7 @@ ao final dessa parte criamos uma nova peça pra ser a cbaeça da cobra. "newHead
 
 E adicionamoa-as a primeira posição da array snake.
     */
-for (i = 0; i < snake.length; i++) {
+    for (i = 0; i < snake.length; i++) {
         if (
             (snake[i].x + box < food.x)
             ||
@@ -217,10 +217,20 @@ for (i = 0; i < snake.length; i++) {
             snake.pop();
         } else {
             createFood();
-            let newHead = new Segment(snakeX, snakeY);
-            snake.unshift(newHead);
         }
+        let newHead = new Segment(snakeX, snakeY);
+        snake.unshift(newHead);
     }
 
 };
 
+/*
+Crie um eventLisneter para o evento de 'keydown' e configure seu callback para executar a função update.
+
+Crie uma variável game que irá chamar a função setInterval. a função startGame é o callback da nossa função setInterval, e seu parametro de atualização será de 100 milissegundos.
+ */
+document.addEventListener("keydown", (event) => {
+    update(event);
+});
+
+let game = setInterval(startGame, 100);
