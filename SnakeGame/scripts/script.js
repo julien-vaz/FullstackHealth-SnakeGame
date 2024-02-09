@@ -189,5 +189,38 @@ Como segue abaixo.
     if (direction == "left") snakeX -= box;
     if (direction == "up") snakeY -= box;
     if (direction == "down") snakeY += box;
+
+    /*
+    Precisamos checar se a cobra comeu a comida ou não e também fazer a cobra andar.
+
+Com base nas coordenadas de food e snake vamos verificar se essas posições se sobrepõe.
+
+Caso seja negativa, a cobrinha ta andando normalmente sem comer a comida. então para
+que o movimento de andar aconteça, tiramos o ultimo quadradinho da array snake.
+
+Caso contrário, então, a cobra come a comida - suas coordenadas se cruzam - então criamos um novo food.
+
+ao final dessa parte criamos uma nova peça pra ser a cbaeça da cobra. "newHead".
+
+E adicionamoa-as a primeira posição da array snake.
+    */
+for (i = 0; i < snake.length; i++) {
+        if (
+            (snake[i].x + box < food.x)
+            ||
+            (snake[i].x > food.x + box)
+            ||
+            (snake[i].y + box < food.y)
+            ||
+            (snake[i].y > food.y + box)
+        ) {
+            snake.pop();
+        } else {
+            createFood();
+            let newHead = new Segment(snakeX, snakeY);
+            snake.unshift(newHead);
+        }
+    }
+
 };
 
