@@ -168,4 +168,26 @@ function startGame() {
     createBG(context);
     createSnake();
     createFood();
+
+    /*
+Agora, declare duas variaveis: sankeX e snakeY. Elas precisam guardar os respectivos valroes de x e y do primeiro item da array snake. Estas duas coordenadas serão sempre a cabeça da snake.
+
+agora precisamos do mecanismo de direcionamento da snake, que se dará pelas coordenadas
+de sua "cabeça".
+
+Como segue abaixo.
+
+    if( direction == "right") snakeX += box;
+    if (direction == "left") snakeX -= box;
+    if (direction == "up") snakeY -= box;
+    if (direction == "down") snakeY += box;
+*/
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
+
+    if (direction == "right") snakeX += box;
+    if (direction == "left") snakeX -= box;
+    if (direction == "up") snakeY -= box;
+    if (direction == "down") snakeY += box;
 };
+
