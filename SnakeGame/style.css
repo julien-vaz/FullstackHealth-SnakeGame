@@ -8,14 +8,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:#ffffff;
+    background-color: #ffffff;
     color: #00043b;
     font-family: 'Press Start 2P', cursive;
-}
-
-
-canvas {
-    margin-bottom: 50px;
 }
 
 
@@ -26,8 +21,7 @@ footer {
     flex-direction: column;
     text-align: center;
     font-size: 15px;
-    margin-top: 25px;
-    margin-bottom: 15px;
+    margin-top: 15px;
     font-family: 'Roboto', sans-serif;
 }
 

@@ -45,7 +45,12 @@ let direction = "right";
 /*
 F. É um objeto de coordenadas aleatórias;
 */
-let food;
+let food = new Segment(Math.floor(Math.random() * 16) * box, Math.floor(Math.random() * 16) * box);
+
+/*
+G. Array de cores para criar o efeito arco íris
+*/
+const colors = ["red", "darkorange", "yellow", "chartreuse", "lightskyblue", "blueviolet", "violet"];
 
 /*
 Precisamos de uma função chamada "createBG" -- criar background --  que desenha nosso quadro do game.
@@ -68,7 +73,13 @@ Crie uma função chamada "createSnake". Esta funçao é responsável por gerar 
  */
 function createSnake() {
     for (i = 0; i < snake.length; i++) {
-        context.fillStyle = "green";
+        let colorIndex;
+        if (i > 6) {
+            colorIndex = i % 7;
+        } else {
+            colorIndex = i;
+        }
+        context.fillStyle = colors[colorIndex];
         context.fillRect(snake[i].x, snake[i].y, box, box);
     }
 }
@@ -80,8 +91,7 @@ O jogo demanda uma funcionalidade que "renderize" também o "food".
  preciamos definir a coloração do contexto (fillStyle) e desenhá-lo em formato retangular (fillRect).
  */
 function createFood() {
-    food = new Segment(Math.floor(Math.random() * 16 * box), Math.floor(Math.random() * 16 * box));
-    context.fillStyle = "red";
+    context.fillStyle = "white";
     context.fillRect(food.x, food.y, 32, 32);
 };
 
@@ -99,10 +109,10 @@ A cobrinha vai andar, certo?
  Lembre-se, a partir desse input evento que vamos verificar qual é a tecla, portando, direção, precisamos tomar decisão de pra onde a cobrinha vai andar.
 */
 function update(event) {
-    if (event.keyCode = 37 && direction != "right") { direction = "left" };
-    if (event.keyCode = 38 && direction != "down") { direction = "up" };
-    if (event.keyCode = 39 && direction != "left") { direction = "right" };
-    if (event.keyCode = 40 && direction != "up") { direction = "down" };
+    if (event.keyCode == 37 && direction != "right") direction = "left";
+    if (event.keyCode == 38 && direction != "down") direction = "up";
+    if (event.keyCode == 39 && direction != "left") direction = "right";
+    if (event.keyCode == 40 && direction != "up") direction = "down";
 };
 
 /*
@@ -138,50 +148,44 @@ Se nenhum dos eixos estiver se tocando, segue o o jogo!
 Logo após esse loop, invoque as funções: createBG, createSnake, createFood em sequencia.
 */
 function startGame() {
-    if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
-    if (snake[0].x < 0 && direction == 'left') snake[0].x = 16 * box;
-    if (snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
-    if (snake[0].y < 0 && direction == 'up') snake[0].y = 16 * box;
+    if (snake[0].x > 15 * box) snake[0].x = 0;
+    if (snake[0].x < 0) snake[0].x = 16 * box;
+    if (snake[0].y > 15 * box) snake[0].y = 0;
+    if (snake[0].y < 0) snake[0].y = 16 * box;
 
-    for (i = 0; i < snake.length; i++) {
-        for (j = 0; j < snake.length; j++) {
-            if (i == j) {
-                continue;
-            }
-            if (
-                (snake[i].x + box < snake[j].x)
-                ||
-                (snake[i].x > snake[j].x + box)
-                ||
-                (snake[i].y + box < snake[j].y)
-                ||
-                (snake[i].y > snake[j].y + box)
-            ) {
-                continue;
-            } else {
-                alert("Game over");
-                clearInterval();
-            }
-        }
-
-    }
+    for (i = 1; i < snake.length; i++) {
+        if (
+            (snake[0].x + box - 1 < snake[i].x)
+            ||
+            (snake[0].x > snake[i].x + box - 1)
+            ||
+            (snake[0].y + box - 1 < snake[i].y)
+            ||
+            (snake[0].y > snake[i].y + box - 1)
+        ) {
+            continue;
+        } else {
+            alert("Game over");
+            clearInterval(game);
+        };
+    };
     createBG(context);
     createSnake();
     createFood();
 
     /*
-Agora, declare duas variaveis: sankeX e snakeY. Elas precisam guardar os respectivos valroes de x e y do primeiro item da array snake. Estas duas coordenadas serão sempre a cabeça da snake.
-
-agora precisamos do mecanismo de direcionamento da snake, que se dará pelas coordenadas
-de sua "cabeça".
-
-Como segue abaixo.
-
+    Agora, declare duas variaveis: sankeX e snakeY. Elas precisam guardar os respectivos valroes de x e y do primeiro item da array snake. Estas duas coordenadas serão sempre a cabeça da snake.
+    
+    agora precisamos do mecanismo de direcionamento da snake, que se dará pelas coordenadas
+    de sua "cabeça".
+    
+    Como segue abaixo.
+    
     if( direction == "right") snakeX += box;
     if (direction == "left") snakeX -= box;
     if (direction == "up") snakeY -= box;
     if (direction == "down") snakeY += box;
-*/
+    */
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
@@ -192,38 +196,37 @@ Como segue abaixo.
 
     /*
     Precisamos checar se a cobra comeu a comida ou não e também fazer a cobra andar.
-
-Com base nas coordenadas de food e snake vamos verificar se essas posições se sobrepõe.
-
-Caso seja negativa, a cobrinha ta andando normalmente sem comer a comida. então para
-que o movimento de andar aconteça, tiramos o ultimo quadradinho da array snake.
-
-Caso contrário, então, a cobra come a comida - suas coordenadas se cruzam - então criamos um novo food.
-
-ao final dessa parte criamos uma nova peça pra ser a cbaeça da cobra. "newHead".
-
-E adicionamoa-as a primeira posição da array snake.
+    
+    Com base nas coordenadas de food e snake vamos verificar se essas posições se sobrepõe.
+    
+    Caso seja negativa, a cobrinha ta andando normalmente sem comer a comida. então para
+    que o movimento de andar aconteça, tiramos o ultimo quadradinho da array snake.
+    
+    Caso contrário, então, a cobra come a comida - suas coordenadas se cruzam - então criamos um novo food.
+    
+    ao final dessa parte criamos uma nova peça pra ser a cbaeça da cobra. "newHead".
+    
+    E adicionamoa-as a primeira posição da array snake.
     */
-    for (i = 0; i < snake.length; i++) {
-        if (
-            (snake[i].x + box < food.x)
-            ||
-            (snake[i].x > food.x + box)
-            ||
-            (snake[i].y + box < food.y)
-            ||
-            (snake[i].y > food.y + box)
-        ) {
-            snake.pop();
-        } else {
-            createFood();
-        }
-        let newHead = new Segment(snakeX, snakeY);
-        snake.unshift(newHead);
-    }
+    let newHead = new Segment(snakeX, snakeY);
+    if (
+        (snakeX + box - 1 < food.x)
+        ||
+        (snakeX > food.x + box - 1)
+        ||
+        (snakeY + box - 1 < food.y)
+        ||
+        (snakeY > food.y + box - 1)
+    ) {
+        snake.pop();
+    } else {
+        food.x = Math.floor(Math.random() * 16) * box;
+        food.y = Math.floor(Math.random() * 16) * box;
+        createFood();
 
+    };
+    snake.unshift(newHead);
 };
-
 /*
 Crie um eventLisneter para o evento de 'keydown' e configure seu callback para executar a função update.
 
