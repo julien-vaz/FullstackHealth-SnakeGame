@@ -1,4 +1,2 @@
-# Fullstack-Health
-Repository containing all projects from fullstack course by Lab 365
-
-Repositório contendo todos os projetos do curso de fullstack pelo Lab 365
+# Fullstack-Health-Snake-Game
+Snake Game done during the fullstack course by LAB365
